@@ -1,21 +1,23 @@
 <template>
     <div class="app">
-        <form onsubmit="">
-            <h4>Создание поста</h4>
-            <input class="input" type="text" placeholder="Название">
-            <input class="input" type="text" placeholder="Описание">
-            <button class="button" @click="createPost">Добавить новый пост</button>
-        </form>
-        <div class="post" v-for="post in posts">
-            <div><strong>Название:</strong>{{ post.title }}</div>
-            <div><strong>Описание:</strong>{{ post.body }}</div>
-        </div>
-        
+        <post-form 
+            @create="createPost"
+        />
+        <post-list 
+            :posts="posts"
+            @delete="deletePost"
+        />
     </div>    
 </template>
 
 <script>
+import PostList from '@/components/PostList'
+import PostForm from '@/components/PostForm'
+
 export default {
+    components: {
+        PostForm, PostList
+    },
     data() {
         return {
             posts: [
@@ -26,7 +28,15 @@ export default {
         }
     },
     methods: {
-        
+        createPost(post) {
+            this.posts.push(post)
+        },
+        deletePost(post) {
+            this.posts = this.posts.filter(p => p.id !== post.id)
+        },
+        eventTitle(event){
+            this.title = event.target.value
+        }
     }
 }
 </script>
@@ -37,33 +47,7 @@ export default {
     margin: 0;
     box-sizing: border-box;
 }
-.post {
-    padding: 15px;
-    border: 2px solid teal;
-    margin-top: 15px;
-}
-.input {
-    width: 100%;
-    border: 1px solid teal;
-    padding: 10px 15px;
-    margin-top: 15px;
-}
 .app {
     padding: 20px;
 }
-form {
-    display: flex;
-    flex-direction: column;
-
-}
-.button {
-    padding: 10px 15px;
-    border: 1px solid teal;
-    margin-top: 15px;
-    align-self: flex-end;
-    background: teal;
-    color: white;
-    border-radius: 10px;
-}
-
 </style>
