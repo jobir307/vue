@@ -1,11 +1,16 @@
 <template>
-    <div>
-        <div>
-            <button @click="addLike">Like</button>
-            <button @click="addDislike">Dislike</button>
+    <div class="app">
+        <form onsubmit="">
+            <h4>Создание поста</h4>
+            <input class="input" type="text" placeholder="Название">
+            <input class="input" type="text" placeholder="Описание">
+            <button class="button" @click="createPost">Добавить новый пост</button>
+        </form>
+        <div class="post" v-for="post in posts">
+            <div><strong>Название:</strong>{{ post.title }}</div>
+            <div><strong>Описание:</strong>{{ post.body }}</div>
         </div>
-        <div>Количество лавков: <strong>{{ likes }}</strong></div>
-        <div>Количество дизлавков: <strong>{{ dislikes }}</strong></div>
+        
     </div>    
 </template>
 
@@ -13,21 +18,52 @@
 export default {
     data() {
         return {
-            likes: 0,
-            dislikes: 0
+            posts: [
+                {id: 1, title: 'Javascript', body: 'Javascript универсалный язык программирования'},
+                {id: 2, title: 'Javascript 2', body: 'Javascript универсалный язык программирования 2'},
+                {id: 3, title: 'Javascript 3', body: 'Javascript универсалный язык программирования 3'}
+            ]
         }
     },
     methods: {
-        addLike() {
-            this.likes += 1
-        },
-        addDislike() {
-            this.dislikes += 1
-        }
+        
     }
 }
 </script>
 
-<style scoped>
+<style>
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+.post {
+    padding: 15px;
+    border: 2px solid teal;
+    margin-top: 15px;
+}
+.input {
+    width: 100%;
+    border: 1px solid teal;
+    padding: 10px 15px;
+    margin-top: 15px;
+}
+.app {
+    padding: 20px;
+}
+form {
+    display: flex;
+    flex-direction: column;
+
+}
+.button {
+    padding: 10px 15px;
+    border: 1px solid teal;
+    margin-top: 15px;
+    align-self: flex-end;
+    background: teal;
+    color: white;
+    border-radius: 10px;
+}
 
 </style>
