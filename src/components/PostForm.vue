@@ -6,6 +6,7 @@
             type="text" 
             placeholder="Название"
             style="margin-top: 15px;"
+            v-focus
          />
         <my-input 
             v-model="post.body"

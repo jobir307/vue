@@ -45,6 +45,6 @@
     margin-left: 10px;
 }
 .post_btns {
-    /* display: flex; */
+    display: flex;
 }
 </style>

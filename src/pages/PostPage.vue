@@ -4,6 +4,7 @@
         <my-input 
             v-model="searchQuery"
             placeholder="Поиск..."
+            v-focus
         />
         <div class="app_btns">
             <my-button
@@ -28,19 +29,6 @@
         />
         <div v-else>Идёт загрузка</div>
         <div v-intersection="loadMorePosts" class="observer"></div>
-        <!-- <div class="page_wrapper">
-            <div 
-                v-for="pageNumber in totalPages" 
-                :key="pageNumber"
-                class="page"
-                :class="{
-                    'current_page': pageNumber === page
-                }"
-                @click="changePage(pageNumber)"
-            >
-                {{ pageNumber }}
-            </div>
-        </div> -->
     </div>    
 </template>
 
@@ -83,10 +71,6 @@ export default {
         showDialog() {
             this.dialogVisible = true
         },
-        /* 
-        changePage(pageNumber) {
-            this.page = pageNumber
-        },*/
         async fetchPosts() {
             try {
                 this.isPostsLoading = true
@@ -127,19 +111,6 @@ export default {
     mounted() {
         this.fetchPosts()
         console.log(this.$refs.observer)
-        // let options = {
-        //     root: document.querySelector("#scrollArea"),
-        //     rootMargin: "0px",
-        //     threshold: 1.0,
-        // };
-        // let callback = (entries, observer) => {
-        //     if (entries[0].isIntersecting && this.page < this.totalPages){
-        //         this.loadMorePosts()
-        //     }
-        // }
-        // let observer = new IntersectionObserver(callback, options);
-        // observer.observe(this.$refs.observer)
-
     },
     computed: {
         sortedPosts() {
@@ -148,11 +119,6 @@ export default {
         sortedAndSearchedPosts() {
             return this.sortedPosts.filter(post => post.title.toLowerCase().includes(this.searchQuery.toLowerCase()))
         }
-    },
-    watch: {
-        /* page() {
-            this.fetchPosts()
-        } */
     }
 }
 </script>
@@ -174,6 +140,7 @@ export default {
     border: 1px solid black;
     padding: 10px;
 }
+
 .current_page {
     border: 2px solid teal;
 
